@@ -42,14 +42,18 @@ function App () {
   
   return (
     <div className="App">
-      <h1>Hello</h1>
+      <h1>*** Ejemplo de hooks con useState() ***</h1>
       {/* <Ejemplo /> */}
 
       <h3>DATA DEL API</h3>
       {
         data !==  ''
         ? data[0].map((pokemon) => (
-          <h4 key={pokemon.url}>Nombre: {pokemon.name.charAt(0).toUpperCase()}{pokemon.name.slice(1)}</h4>
+          <div key={pokemon.url}>
+            <h4 >Name: {pokemon.name.charAt(0).toUpperCase()}{pokemon.name.slice(1)}</h4>
+            <h4 >URL: {pokemon.url}</h4>
+            <p> ------------------------------------------------------------------ </p>
+          </div>
         ))
         : null
       }
