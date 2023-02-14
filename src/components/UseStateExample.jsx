@@ -186,8 +186,4 @@ export default function MiComponenteConContexto() {
   )
 }
 
-
-
-
-
 export {Ejemplo, Ejemplo2, MiComponenteConContexto as Ejemplo3};
