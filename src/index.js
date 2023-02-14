@@ -1,14 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App.js';
-import Ejemplo from './components/Ejemplo';
+import Hooks from './components/Hooks.js';
+import UseStateExample from './components/UseStateExample';
+import Props from './components/Props';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Ejemplo />
-    <App />
+    {/* <UseStateExample /> */}
+    <Hooks />
+    {/* <Props /> */}
+
   </React.StrictMode>
 );
 
