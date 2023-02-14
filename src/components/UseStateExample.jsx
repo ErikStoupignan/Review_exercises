@@ -1,8 +1,11 @@
 // Crear componente de tipo función y acceder a su estado 
 // usando Hooks y poder modificarlo
 
-import React, {useState, useRef, useEffect} from 'react'
+import React, {useState, useRef, useEffect, useContext} from 'react'
 
+//  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// EJEMPLO 1 
+// useState
 const Ejemplo = () => {
 
   // Valor inicial contador
@@ -46,7 +49,7 @@ const Ejemplo = () => {
 
     <div>
       <button onClick={incrementarContador}>Incrementar Contador</button>
-      <button onClick={actualizarPersona}>Incrementar Contador</button>
+      <button onClick={actualizarPersona}>Actualizar Datos Persona</button>
     </div>
     </>
 
@@ -54,6 +57,9 @@ const Ejemplo = () => {
   );
 }
 
+//  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// EJEMPLO 2
+// useRef, useEffect y useState
 const Ejemplo2 = () => {
   const [contador1, setContador1] = useState(0);
   const [contador2, setContador2] = useState(0);
@@ -118,4 +124,70 @@ const Ejemplo2 = () => {
     );
 }
 
-export {Ejemplo, Ejemplo2};
+//  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// EJEMPLO 3
+
+// Iniciamos un estado vacio que se rellará con los datos del contexto del padre
+const miContexto = React.createContext(null)
+
+// Componente 1 tendra un CONTEXTO que recibe del padre
+const Componente1 = () => {
+  
+  const state = useContext(miContexto);
+
+  return (
+    <div>
+        <h1>El token es: {state.token}</h1>
+        {/* Imprimos el componente 2 */}
+        <Componente2 />
+    </div>
+  )
+}
+
+const Componente2 = () => {
+
+  const state = useContext(miContexto);
+
+  return (
+    <div>
+        <h2>La sesión es: {state.sesion}</h2>
+    </div>
+  )
+}
+
+export default function MiComponenteConContexto() {
+
+  const estadoInicial ={
+    token: '12334567',
+    sesion: 1
+  }
+
+  // Creamos el estado de este componente
+  const [sessionData, setSessionData] = useState(estadoInicial);
+
+  function actualizarSesion() {
+    setSessionData(
+      {
+        token: 'ERIKSTOUPIGNAN',
+        sesion: sessionData.sesion + 1
+      }
+    );
+  }
+
+  return (
+    <miContexto.Provider value={sessionData}>
+      <h1>*** Ejemplo de useState() & useContext() ***</h1>
+
+      {/* Todo lo que este aquí adentro puede leer los datos de sessionData */}
+      {/* Ademas, si se actualiza, los componentes de aquí, también lo actualizan */}
+      <Componente1 />
+      <button onClick={actualizarSesion}>Actualizar Sesión</button>
+    </miContexto.Provider>
+  )
+}
+
+
+
+
+
+export {Ejemplo, Ejemplo2, MiComponenteConContexto as Ejemplo3};
